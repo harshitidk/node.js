@@ -2,17 +2,37 @@ var express = require('express');
 var router = express.Router();
 var userModel = require("./users")
 
-router.get('/create', async (req, res) => {
-  try {
-    const createUser = await userModel.create({
-      username: 'harshitheya',
-      age: 21,
-      name: 'harshit'
-    });
-    res.status(201).send(createUser); // Send the created user
-  } catch (err) {
-    res.status(500).send("Error creating user: " + err.message);
-  }
-});
+// router.get('/',function(req,res){
+//   req.session.ban = false;
+//   res.render('index')
+// })
+
+// router.get('/see', function(req,res){
+//   console.log(req.session)
+//   res.send(req.session)
+// })
+
+// router.get('/remove', function(req,res){
+//   req.session.destroy(function(err){
+//     if (err) throw err;
+//     res.send("ban removed")
+//   })
+// });
+
+router.get('/cookie',function(req,res){
+  const harshit = {name: "harshit",
+    age: 21, prof: "designer"}
+  res.cookie('userdata',harshit)
+  res.send('check the cookies')
+})
+
+router.get('/getcookie', function(req,res){
+  res.send(req.cookies)
+})
+
+router.get('/delete',function(req,res){
+  res.clearCookie('userdata')
+  res.send('clear yes')
+})
 
 module.exports = router;
